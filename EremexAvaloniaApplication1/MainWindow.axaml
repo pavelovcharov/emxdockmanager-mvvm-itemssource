@@ -3,9 +3,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mx="https://schemas.eremexcontrols.net/avalonia"
+             xmlns:mxd="https://schemas.eremexcontrols.net/avalonia/docking"
+             xmlns:eremexAvaloniaApplication1="clr-namespace:EremexAvaloniaApplication1"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="EremexAvaloniaApplication1.MainWindow"
              Icon="/Assets/EMXControls.ico"
-             Title="EremexAvaloniaApplication1">
-    Welcome to Avalonia!
+             Title="EremexAvaloniaApplication1"
+             x:DataType="eremexAvaloniaApplication1:MainViewModel">
+    <mxd:DockManager ItemsSource="{Binding Panes}" ItemAdapter="{eremexAvaloniaApplication1:PaneAdapter}">
+        <mxd:DockManager.ItemTemplate>
+            <eremexAvaloniaApplication1:PaneTemplateSelector>
+                <eremexAvaloniaApplication1:PaneTemplateSelector.DocumentTemplate>
+                    <DataTemplate DataType="eremexAvaloniaApplication1:DocumentPaneViewModel">
+                        <mxd:DocumentPane Header="{Binding Header}" />
+                    </DataTemplate>
+                </eremexAvaloniaApplication1:PaneTemplateSelector.DocumentTemplate>
+                <eremexAvaloniaApplication1:PaneTemplateSelector.DockPaneTemplate>
+                    <DataTemplate DataType="eremexAvaloniaApplication1:DockPanePaneViewModel">
+                        <mxd:DockPane Header="{Binding Header}" />
+                    </DataTemplate>
+                </eremexAvaloniaApplication1:PaneTemplateSelector.DockPaneTemplate>
+            </eremexAvaloniaApplication1:PaneTemplateSelector>
+        </mxd:DockManager.ItemTemplate>
+        <mxd:DockGroup>
+            <mxd:DockGroup x:Name="panehost" Orientation="Vertical"></mxd:DockGroup>
+            <mxd:DocumentGroup x:Name="documenthost"></mxd:DocumentGroup>
+        </mxd:DockGroup>
+    </mxd:DockManager>
 </mx:MxWindow>
